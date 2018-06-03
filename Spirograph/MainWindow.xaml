@@ -25,38 +25,37 @@
                ToolTip="Outer Circle Radius"/>
         <TextBox HorizontalAlignment="Left" Height="20" Margin="160,218,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_R1}" 
                  VerticalAlignment="Top" Width="40" TextAlignment="Center" IsReadOnly="True" />
-        <!--This slider is disabled cause I need to fix the mapping to keep it centered-->
         <Slider Name="SliderR1" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top" Width="190" 
-            Minimum="100" Maximum="600" TickFrequency="50" IsSnapToTickEnabled="True" Thumb.DragCompleted="Any_Slider_DragCompleted" IsEnabled="False"/> 
+            Minimum="100" Maximum="600" TickFrequency="25" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged" /> 
 
         <Label Content="Radius 2 (r), 0-100% of R" HorizontalAlignment="Left" Margin="10,254,0,0" VerticalAlignment="Top" 
                ToolTip="Inner Circle Radius"/>
         <TextBox HorizontalAlignment="Left" Height="20" Margin="160,258,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_R2}" 
                  VerticalAlignment="Top" Width="40" TextAlignment="Center" IsReadOnly="True" />
         <Slider Name="SliderR2" HorizontalAlignment="Left" Margin="10,280,0,0" VerticalAlignment="Top" Width="190"
-                Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True" Thumb.DragCompleted="Any_Slider_DragCompleted"/>
+                Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
 
         <Label Content="Radius 3 (ρ), 0-100% of r" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" 
                ToolTip="Pen Offset"/>
         <TextBox HorizontalAlignment="Left" Height="20" Margin="160,298,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_R3}" 
                  VerticalAlignment="Top" Width="40" TextAlignment="Center" IsReadOnly="True" />
         <Slider Name="SliderR3" HorizontalAlignment="Left" Margin="10,320,0,0" VerticalAlignment="Top" Width="190"
-                Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True" Thumb.DragCompleted="Any_Slider_DragCompleted"/>
+                Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
 
-        <Label Content="PPD, 1-20" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" ToolTip="Points Per Degree"/>
-        <TextBox HorizontalAlignment="Left" Height="20" Margin="160,338,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_PPD}" 
+        <Label Content="PPR, 1-360" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" ToolTip="Points Per Rotation"/>
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="160,338,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_PPR}" 
                  VerticalAlignment="Top" Width="40" TextAlignment="Center" IsReadOnly="True" />
-        <Slider Name="SliderPPD" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Width="190"
-                Minimum="1" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Thumb.DragCompleted="Any_Slider_DragCompleted"/>
+        <Slider Name="SliderPPR" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Width="190"
+                Minimum="5" Maximum="360" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
 
-        <Label Content="Rotations, 1-20" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" 
+        <Label Content="Rotations, 1-50" HorizontalAlignment="Left" Margin="10,374,0,0" VerticalAlignment="Top" 
                ToolTip="Complete Rotations About R"/>
         <TextBox HorizontalAlignment="Left" Height="20" Margin="160,378,0,0" TextWrapping="NoWrap" Text="{Binding SliderVal_Rot}" 
                  VerticalAlignment="Top" Width="40" TextAlignment="Center" IsReadOnly="True" />
         <Slider Name="SliderRot" HorizontalAlignment="Left" Margin="10,400,0,0" VerticalAlignment="Top" Width="190" 
-                Minimum="1" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Thumb.DragCompleted="Any_Slider_DragCompleted"/>
+                Minimum="1" Maximum="50" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
 
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Height="549" Margin="0,10,0,0" VerticalAlignment="Top" Width="5"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="5"/>
 
         <local:SpirographDisplay_UC x:Name="SpirographDisp" Grid.Column="2"/>
 

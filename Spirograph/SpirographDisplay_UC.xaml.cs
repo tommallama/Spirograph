@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Spirograph
@@ -27,11 +18,11 @@ namespace Spirograph
             InitializeComponent();
             sm = new SpiroMath();
         }
-
-
-        // Clean canvas
-        // Draw polyline
-        // Draw dotline (so we can address individual pixel colors?)
+        
+        // TODO: Add the ability to pick colors
+        // TODO: Add the ability to cascade multiple spiros
+        // TODO: Add the abolity to chose lines or discrete points
+        // TODO: Put magic numbers into resource file
 
         public void ClearCanvas()
         {
@@ -67,23 +58,27 @@ namespace Spirograph
 
         }
 
-        private void CreatePointSpiro(PointCollection points)
+        public void CreatePointSpiro()
         {
-            // TODO: Fix math first
+            //TODO: Fix math first
             //List<Point> points = sm.test();
 
-            //foreach (var p in points)
-            //{
-            //    Ellipse currentEllispe = new Ellipse();
-            //    currentEllispe.Height = 5;
-            //    currentEllispe.Width = 5;
-            //    currentEllispe.StrokeThickness = 5;
-            //    currentEllispe.Stroke = Brushes.Red;
+            List<Point> pts = new List<Point>();
 
-            //    Canvas.SetTop(currentEllispe, p.X);
-            //    Canvas.SetLeft(currentEllispe, p.Y);
-            //    SpiroCanvas.Children.Add(currentEllispe);
-            //}
+            pts.Add(new Point(600, 600));
+
+            foreach (var p in pts)
+            {
+                Ellipse currentEllispe = new Ellipse();
+                currentEllispe.Height = 10;
+                currentEllispe.Width = 10;
+                currentEllispe.StrokeThickness = 10;
+                currentEllispe.Stroke = System.Windows.Media.Brushes.Red;
+
+                Canvas.SetTop(currentEllispe, p.X);
+                Canvas.SetLeft(currentEllispe, p.Y);
+                SpiroCanvas.Children.Add(currentEllispe);
+            }
         }
     }
 }

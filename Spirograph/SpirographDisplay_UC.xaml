@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <Viewbox>
-        <Canvas x:Name="SpiroCanvas" Height="1200" Width="1200"/>
+        <Canvas x:Name="SpiroCanvas" Height="1200" Width="1200" Background="LightGray"/>
     </Viewbox>
 </UserControl>

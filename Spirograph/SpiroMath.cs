@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -12,50 +9,32 @@ namespace Spirograph
     {
         // For a primer on the spirograph mathematical basis see https://en.wikipedia.org/wiki/Spirograph
         // Equations:
-        // x(t) = R*[(1-k)*Cos(t) + l*k*Cos(t*(1-k)/k)]
-        // y(t) = R*[(1-k)*Sin(t) - l*k*Sin(t*(1-k)/k)]
+        //      x(t) = R*[(1-k)*Cos(t) + l*k*Cos(t*(1-k)/k)]
+        //      y(t) = R*[(1-k)*Sin(t) - l*k*Sin(t*(1-k)/k)]
         // Where:
-        //  l = rho/r
-        //  k = r/R
-
+        //      l = rho/r   --> Used to simplify the equations
+        //      k = r/R     --> Used to simplify the equations
         // Hard rules:
-        // R > r > rho
+        //      R > r > rho
 
-        //const double rho = 0.10;
-        //const double r = 0.32;
-        //const double R = 1;
-        //const double l = rho / r;
-        //const double k = r / R;
-
-        private double map(double m, double in_min, double in_max, double out_min, double out_max)
+        //TODO: Add comments
+        public PointCollection CalculateSpiroPoints(double R, double r, double rho, double PPR, double Rot)
         {
-            return (m - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
-
-
-
-        public PointCollection CalculateSpiroPoints(double R, double r, double rho, double PPD, double Rot)
-        {
-            double start = 0.0; // in Radians
-            double end = 2 * Math.PI * Rot;   // in Radians
-            int numberOfPoints = (int)(Rot * 360 * PPD);
-            double linSpace = (end - start) / (double)numberOfPoints;
-            double l = rho / r;
-            double k = r / R;
-
-            List<double> t = new List<double>();
-            PointCollection points = new PointCollection();
-
+            double start = 0.0;                                         // In Radians
+            double end = 2 * Math.PI * Rot;                             // In Radians
+            int numberOfPoints = (int)(Rot * PPR);                      // Number of points using points per rotation and rotations
+            double linSpace = (end - start) / (double)numberOfPoints;   // Linearly point spacing in radians. Not exact but close enough
+            double l = rho / r;                                         // See above for parameter description
+            double k = r / R;                                           // See above for parameter description
+            PointCollection points = new PointCollection();             // Actual points to be mapped 
 
             for (int i = 0; i < numberOfPoints; i++)
             {
-                t.Add(start + i * linSpace);
-            }
-
-            foreach (var item in t)
-            {
-                double tempX = map(Xpos(item,R,l,k), -1 * R, R, 0, R*1200);
-                double tempY = map(Ypos(item,R,l,k), -1 * R, R, 0, R*1200);
+                double t = start + i * linSpace;                // t is the incrementing unit and correlates to an angle
+                double tempX = Xpos(t, R, l, k);                // Calculate X
+                double tempY = Ypos(t, R, l, k);                // Calculate Y
+                tempX = (tempX + 1) * 600;                      // Simple remapping of unit quadrants to quadrant I with max X,Y of 1200,1200
+                tempY = (tempY + 1) * 600;                      // Simple remapping of unit quadrants to quadrant I with max X,Y of 1200,1200
                 points.Add(new Point(tempX, tempY));
             }
             return points;

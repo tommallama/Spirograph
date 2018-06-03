@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Spirograph
 {
@@ -22,12 +10,14 @@ namespace Spirograph
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private bool initComplete = false;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
             InitSliders();
             UpdateSliderVals();
+            initComplete = true;
         }
 
         private void InitSliders()
@@ -35,13 +25,13 @@ namespace Spirograph
             SliderR1.Value = SliderR1.Maximum;
             SliderR2.Value = 35;
             SliderR3.Value = 75;
-            SliderPPD.Value = 1;
-            SliderRot.Value = 13;
+            SliderPPR.Value = SliderPPR.Minimum;
+            SliderRot.Value = 5;
 
             double R = SliderR1.Value / 600;// Fix this but the spiromath uses a unit of 1 max...
             double r = R * SliderR2.Value / 100;  // r is a percentage of R
             double rho = r * SliderR3.Value / 100;    // rho is a percentage of r
-            SpirographDisp.AddSpiroToCanvas(R, r, rho, SliderPPD.Value, SliderRot.Value);
+            SpirographDisp.AddSpiroToCanvas(R, r, rho, SliderPPR.Value, SliderRot.Value);
         }
 
         private void UpdateSliderVals()
@@ -50,7 +40,7 @@ namespace Spirograph
             SliderVal_R1 = SliderR1.Value.ToString();
             SliderVal_R2 = SliderR2.Value.ToString();
             SliderVal_R3 = SliderR3.Value.ToString();
-            SliderVal_PPD = SliderPPD.Value.ToString();
+            SliderVal_PPR = SliderPPR.Value.ToString();
             SliderVal_Rot = SliderRot.Value.ToString();
         }
 
@@ -58,7 +48,7 @@ namespace Spirograph
         private string sliderVal_R1;
         private string sliderVal_R2;
         private string sliderVal_R3;
-        private string sliderVal_PPD;
+        private string sliderVal_PPR;
         private string sliderVal_Rot;
 
         public string SliderVal_R1
@@ -76,10 +66,10 @@ namespace Spirograph
             get => sliderVal_R3;
             set { sliderVal_R3 = value; NotifyPropertyChanged(); }
         }
-        public string SliderVal_PPD
+        public string SliderVal_PPR
         {
-            get => sliderVal_PPD;
-            set { sliderVal_PPD = value; NotifyPropertyChanged(); }
+            get => sliderVal_PPR;
+            set { sliderVal_PPR = value; NotifyPropertyChanged(); }
         }
         public string SliderVal_Rot
         {
@@ -105,17 +95,15 @@ namespace Spirograph
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Console.WriteLine("Slider Moved");
-        }
-
-        private void Any_Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
-        {
-            UpdateSliderVals();
-            // Need to convert the percentages into real numbers
-            double R = SliderR1.Value / 600;// Fix this but the spiromath uses a unit of 1 max...
-            double r = R * SliderR2.Value / 100;  // r is a percentage of R
-            double rho = r * SliderR3.Value / 100;    // rho is a percentage of r
-            SpirographDisp.AddSpiroToCanvas(R, r, rho, SliderPPD.Value, SliderRot.Value);
+            if (initComplete)
+            {
+                UpdateSliderVals();
+                // Need to convert the percentages into real numbers
+                double R = SliderR1.Value / 600;// Fix this but the spiromath uses a unit of 1 max...
+                double r = R * SliderR2.Value / 100;  // r is a percentage of R
+                double rho = r * SliderR3.Value / 100;    // rho is a percentage of r
+                SpirographDisp.AddSpiroToCanvas(R, r, rho, SliderPPR.Value, SliderRot.Value);
+            }
         }
     }
 }
